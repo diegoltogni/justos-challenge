@@ -86,7 +86,7 @@ CREATE TABLE T_A_Trip_Score_Rolling_Average_Last80km AS (
     , calculate_score AS (
 
         SELECT customer_id
-            , SUM(trip_score * trip_km) / SUM(trip_km) AS Score_RAvg_Last80km
+            , ROUND(SUM(trip_score * trip_km) / SUM(trip_km), 2) AS Score_RAvg_Last80km
         FROM flag_relevant_trips
         WHERE is_last_80km -- last 80 km the user has driven, including last trip
         GROUP BY 1
