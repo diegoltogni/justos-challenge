@@ -35,7 +35,6 @@ CREATE TABLE T_A_last10 AS (
 
 );
 
-
 -- 4. Given table T_A that has fields 
 -- “Customer_ID”, “Claim_type”, “Claim_value”, “Claim_timestamp” 
 -- write a script that creates a new table, T_A_Claim_Value_With_Trend, 
