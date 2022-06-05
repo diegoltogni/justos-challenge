@@ -1,0 +1,45 @@
+1) Describe best practices when modeling in Looker.
+
+I have no experience using Looker specifically, but I can share some best practices having in mind the time I was working with Tableau extracts.
+- Have in mind who are the Looker stakeholders and what are the main use cases for the data being modeled.
+    The data should be as digested as possible based on the use case.
+    For example if one of the main use cases is to report company revenue over time, perhaps adding a simple revenue per day table is useful (even if it is not very flexible).
+- Be consistent when naming columns and use prefixes/sufixes to indicate the data type.
+    For example, things like "_at" to indicate a datetime or "is_" to indicate a boolean.
+    Don't just name a column "type", be more specific and use "customer_type", "policy_type", etc.
+_ Also be consistent when doing calculations
+    For example, if revenue = (A + B) in one table, don't make it (A + B - C) in a different table. And if you do, name the column in such a way that it is obvious.
+    Also, if you have multiple currencies, make it obvious in the column name (like "revenue_usd")
+- Try not to create redundant data unnecessarily. That can get people confused when trying to find the relevant data they're after.
+    For example, if there is a revenue per day table, it might not be necessary to create a revenue per month table.
+- Try to have expensive data transformations done at the warehouse layer instead of at the Looker layer
+    For example, it might be a good idea consolidate fact+dimensions (by performing all JOINS) into a single table to facilitate for end users.
+- Think carefully when making raw data available in the Looker layer. 
+    Most of the time, it is better to hide that from BI tools.
+    There might be cases when we want to make it accessible, but try always to digest it first in previous layers of the data pipeline.
+
+
+
+2) What's the difference between Amplitude and Looker?
+
+Again, those are two technologies I never had the chance to work with, but my understanding is that Looker is a tool for building data visualization on top of existing data (like Tableau, Power BI, etc) while Amplitude is a tool that also collects the data itself.
+Amplitude is a solution that does both data tracking and analysis, but you might end up a bit limited when doing the analysis. It might not be too customisable and you're limited by the data that is tracked by Amplitude.
+Looker is a solution that is focused on the analysis part. It should be easier to integrate with multiple data sources and you have more flexibility when creating reports.
+
+
+3) How would you engage business users to use Looker?
+
+First you'd need to define at what level you want business users engaging with Looker.
+Would you want them simply consuming existing reports, or would you want them also to be able to create their own reports.
+Then you need to understand their dutties and motivations, so you can identify what Looker can do for them. They need to see Looker as a facilitator and not another tool they have to learn how to use. Start simple, instead of overwhelming users with the tones of features.
+Get their feedback as soon and as often as possible, so you can address early main reasons for lack of engagement.
+
+4) How would you handle governance in Looker / Segment / Amplitude?
+
+The most important thing is to encourage communication between all stakeholders.
+I'd create a plan about how that communication would be structured and assign key "responsible person" for each identified areas of risk.
+    It is important to identify all stakeholders and their different roles, but also encourage collective ownership of processes.
+    Having that said, assigning key "responsible person" helps to centralize decision making and troubleshooting.
+Documentation is important when dealing with data governance, but we'd need to find the right balance between writing documentation and moving fast.
+I would also get together with those key "responsible person" and define what is the role of each of those tools in the pipeline.
+    For example, perhaps they all could be used to create a purchase funnel, but you don't want different tools performing the same task.
