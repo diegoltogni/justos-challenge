@@ -67,7 +67,7 @@ CREATE TABLE T_A_Claim_Value_With_Trend AS (
 -- representing the distance-weighted average score 
 -- for the last 80 km the user has driven up to (and including) the last trip, 
 -- rounded to second decimal point.
-CREATE TABLE Score_RAvg_Last80km AS (
+CREATE TABLE T_A_Trip_Score_Rolling_Average_Last80km AS (
 
     WITH add_rolling_sum AS (
 
@@ -87,7 +87,7 @@ CREATE TABLE Score_RAvg_Last80km AS (
     , calculate_score AS (
 
         SELECT customer_id
-            , SUM(trip_score) / SUM(trip_km) AS distance_weighted_average_score_last_80km
+            , SUM(trip_score * trip_km) / SUM(trip_km) AS Score_RAvg_Last80km
         FROM flag_relevant_trips
         WHERE is_last_80km -- last 80 km the user has driven, including last trip
         GROUP BY 1
